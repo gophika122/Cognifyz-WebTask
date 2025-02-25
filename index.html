@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Task</title>
+    <title>JavaScript Task 3</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,92 +22,80 @@
         }
 
         /* Button Styling */
-        .color-btn {
+        .toggle-btn, .color-btn {
             padding: 10px 20px;
-            background-color: blue;
-            color: white;
+            margin: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-        }
-        .color-btn:hover {
-            background-color: darkblue;
         }
 
-        /* Calculator Styling */
-        .calculator input {
-            padding: 8px;
-            width: 80px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
+        .toggle-btn {
+            background-color: #007bff;
+            color: white;
         }
-        .calculator button {
-            padding: 8px 15px;
+
+        .color-btn {
             background-color: #28a745;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        }
+
+        #clock {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>JavaScript Task</h2>
+        <h2>JavaScript Task 3</h2>
 
-        <!-- Task 1: Button Changing Color -->
-        <h3>Click the Button to Change Color</h3>
-        <button class="color-btn" onclick="changeColor()">Click Me</button>
+        <!-- Task 1: Toggle Text -->
+        <h3>Toggle Text Visibility</h3>
+        <p id="toggleText">Hello! Click the button to hide or show this text.</p>
+        <button class="toggle-btn" onclick="toggleText()">Toggle Text</button>
 
-        <!-- Task 2: Alert Box Based on Time -->
-        <h3>Check Greeting</h3>
-        <button onclick="showGreeting()">Show Greeting</button>
+        <!-- Task 2: Change Text Color -->
+        <h3>Change Text Color</h3>
+        <select id="colorSelect" onchange="changeColor()">
+            <option value="black">Black</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select>
+        <p id="colorText">This text color will change.</p>
 
-        <!-- Task 3: Basic Calculator -->
-        <h3>Simple Calculator</h3>
-        <div class="calculator">
-            <input type="number" id="num1" placeholder="Num 1">
-            <input type="number" id="num2" placeholder="Num 2">
-            <button onclick="calculateSum()">Add</button>
-            <h4>Result: <span id="result">0</span></h4>
-        </div>
+        <!-- Task 3: Real-Time Clock -->
+        <h3>Real-Time Clock</h3>
+        <div id="clock">00:00:00</div>
     </div>
 
     <script>
-        // Task 1: Change Button Color
+        // Task 1: Toggle Text
+        function toggleText() {
+            let text = document.getElementById("toggleText");
+            if (text.style.display === "none") {
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
+
+        // Task 2: Change Text Color
         function changeColor() {
-            let button = document.querySelector(".color-btn");
-            let randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
-            button.style.backgroundColor = randomColor;
+            let selectedColor = document.getElementById("colorSelect").value;
+            document.getElementById("colorText").style.color = selectedColor;
         }
 
-        // Task 2: Greeting Alert Based on Time
-        function showGreeting() {
-            let hours = new Date().getHours();
-            let greeting;
-            if (hours < 12) {
-                greeting = "Good Morning! ☀️";
-            } else if (hours < 18) {
-                greeting = "Good Afternoon! 🌤️";
-            } else {
-                greeting = "Good Evening! 🌙";
-            }
-            alert(greeting);
+        // Task 3: Real-Time Clock
+        function updateClock() {
+            let now = new Date();
+            let timeString = now.toLocaleTimeString();
+            document.getElementById("clock").textContent = timeString;
         }
-
-        // Task 3: Simple Calculator (Addition)
-        function calculateSum() {
-            let num1 = parseFloat(document.getElementById("num1").value);
-            let num2 = parseFloat(document.getElementById("num2").value);
-            if (!isNaN(num1) && !isNaN(num2)) {
-                document.getElementById("result").textContent = num1 + num2;
-            } else {
-                alert("Please enter valid numbers!");
-            }
-        }
+        setInterval(updateClock, 1000); // Update clock every second
     </script>
 
 </body>
